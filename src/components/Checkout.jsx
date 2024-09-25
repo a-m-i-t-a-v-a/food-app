@@ -20,7 +20,7 @@ const Checkout = () => {
   const userProgressContext=useContext(UserProgressContext)
   const cartTotal=cartContext.items.reduce((acc,curr)=>acc+curr.quantity*curr.price,0);
 
-  const {data,isLoading:isSending,error,sendRequest}=useHttp('http://localhost:3000/orders',requestConfig)
+  const {data,isLoading:isSending,error,sendRequest,clearData}=useHttp('http://localhost:3000/orders',requestConfig)
 
   function handleClose(){
     userProgressContext.hideCheckout()
@@ -28,7 +28,8 @@ const Checkout = () => {
 
   function handleFinish(){
     userProgressContext.hideCheckout();
-    cartContext.clearCart()
+    cartContext.clearCart();
+    clearData();
   }
 
   function handleSubmit(e){
